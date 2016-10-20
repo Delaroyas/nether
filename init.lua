@@ -3,7 +3,7 @@
 local NETHER_DEPTH = -5000
 local TCAVE = 0.6
 local BLEND = 128
-
+local INTERSCALE = 10
 
 -- 3D noise
 
@@ -208,8 +208,12 @@ local function make_portal(pos)
 	local target = {x = p1.x, y = p1.y, z = p1.z}
 	target.x = target.x + 1
 	if target.y < NETHER_DEPTH then
+		target.x=target.x*INTERSCALE;
+		target.z=target.z*INTERSCALE;
 		target.y = find_surface_target_y(target.x, target.z, -16)
 	else
+		target.x=target.x/INTERSCALE;
+		target.z=target.z/INTERSCALE;		
 		local start_y = NETHER_DEPTH - math.random(500, 1500) -- Search start
 		target.y = find_nether_target_y(target.x, target.z, start_y)
 	end
